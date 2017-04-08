@@ -1,0 +1,71 @@
+/* @project 
+ * 
+ * License to access, copy or distribute this file.
+ * This file or any portions of it, is Copyright (C) 2012, Radu Motisan ,  http://www.pocketmagic.net . All rights reserved.
+ * @author Radu Motisan, radu.motisan@gmail.com
+ * 
+ * This file is protected by copyright law and international treaties. Unauthorized access, reproduction 
+ * or distribution of this file or any portions of it may result in severe civil and criminal penalties.
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * 
+ * @purpose Eth interface for Atmega microcontrollers
+ * http://www.pocketmagic.net/?p=2866
+ */
+
+/*
+ * CS can be configured in hw_enc28j60.h
+ * Configure mymac and myip below
+ */
+
+#include <avr/io.h>
+#include <stdlib.h>
+#include <string.h>
+#include "timeout.h" // defines F_CPU
+#include <avr/interrupt.h>
+#include <util/delay.h>
+
+// sensors
+//#include "sensors/ds1820.h"
+#include "sensors/dht11.h"
+#include "lcd/hd44780.h"
+// ethernet interf
+
+
+// HD44780 LCD Class
+
+// enc28j60 Ethernet Class
+
+
+/*
+ * Main entry point
+ */
+int main(void) {
+	// 2.CREATE Timer T0 to count seconds
+	//
+	TIMSK |= (1 << TOIE0);
+	// set prescaler to 64 and start the timer
+	TCCR0 |= (1 << CS01) | (1 << CS00);
+	// start timer and interrupts
+	sei();
+	
+	lcd_init();
+	lcd_clrscr();
+	
+	int i = 0;
+	while(1){
+		i++;
+		lcd_home();
+		int t = 0 , h = 0;
+		//DHT11_read(&t, &h);
+		lcd_string_format(" %d %d H:%d   ", i,t,h);
+		
+		
+		_delay_ms(1000);
+					
+	}
+     
+	return (0);
+} 

@@ -1,0 +1,5 @@
+512files.o: 512files.c SDCARDFILES.h SDCARD.h
+
+SDCARDFILES.h:
+
+SDCARD.h:

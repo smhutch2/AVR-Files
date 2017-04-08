@@ -1,0 +1,576 @@
+
+USART.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000002c0  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .bss          00000085  00800100  00800100  00000334  2**0
+                  ALLOC
+  2 .debug_aranges 00000020  00000000  00000000  00000334  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_pubnames 000000b3  00000000  00000000  00000354  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_info   000003e7  00000000  00000000  00000407  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_abbrev 000001df  00000000  00000000  000007ee  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_line   0000033e  00000000  00000000  000009cd  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_frame  000000c0  00000000  00000000  00000d0c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_str    0000018e  00000000  00000000  00000dcc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_loc    0000015d  00000000  00000000  00000f5a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+   8:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+   c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  10:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  14:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  18:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  1c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  20:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  24:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  28:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  2c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  30:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  34:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  38:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  3c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  40:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  44:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  48:	0c 94 31 01 	jmp	0x262	; 0x262 <__vector_18>
+  4c:	0c 94 04 01 	jmp	0x208	; 0x208 <__vector_19>
+  50:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  54:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  58:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  5c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  60:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  64:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+
+00000074 <__do_clear_bss>:
+  74:	11 e0       	ldi	r17, 0x01	; 1
+  76:	a0 e0       	ldi	r26, 0x00	; 0
+  78:	b1 e0       	ldi	r27, 0x01	; 1
+  7a:	01 c0       	rjmp	.+2      	; 0x7e <.do_clear_bss_start>
+
+0000007c <.do_clear_bss_loop>:
+  7c:	1d 92       	st	X+, r1
+
+0000007e <.do_clear_bss_start>:
+  7e:	a5 38       	cpi	r26, 0x85	; 133
+  80:	b1 07       	cpc	r27, r17
+  82:	e1 f7       	brne	.-8      	; 0x7c <.do_clear_bss_loop>
+  84:	0e 94 50 01 	call	0x2a0	; 0x2a0 <main>
+  88:	0c 94 5e 01 	jmp	0x2bc	; 0x2bc <_exit>
+
+0000008c <__bad_interrupt>:
+  8c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000090 <UART_init>:
+//
+void UART_init (void)
+{
+  // First init for the UART
+
+  cli();                  // no interrupts during initialization.
+  90:	f8 94       	cli
+
+  // turn everything off
+  UCSR0A = 0x00;          // writing zero to UCSRnA is probably not needed.
+  92:	10 92 c0 00 	sts	0x00C0, r1
+  UCSR0B = 0x00;          // disable everything in UCSRnB
+  96:	e1 ec       	ldi	r30, 0xC1	; 193
+  98:	f0 e0       	ldi	r31, 0x00	; 0
+  9a:	10 82       	st	Z, r1
+
+  // set baudrate, the UBBR_VALUE is defined in uart.h
+  UBRR0L = (uint8_t) (UBBR_VALUE);
+  9c:	85 e0       	ldi	r24, 0x05	; 5
+  9e:	80 93 c4 00 	sts	0x00C4, r24
+  UBRR0H = (uint8_t) (UBBR_VALUE >> 8);
+  a2:	10 92 c5 00 	sts	0x00C5, r1
+
+  // 8 Databits, receive and transmit enabled, receive complete interrupt enabled
+  UCSR0B = _BV(RXCIE0) | _BV(TXEN0) | _BV(RXEN0);
+  a6:	88 e9       	ldi	r24, 0x98	; 152
+  a8:	80 83       	st	Z, r24
+  // Set the most used serial settings: asynchrone, no parity, 8 bit, 1 stop bit.
+  // The ATmega8 uses an URSEL bit, which is not present on newer chips.
+#if defined (__AVR_ATmega8__)
+  UCSRC = _BV(URSEL) | _BV(UCSZ01) | _BV(UCSZ00); // for ATmega8
+#else
+  UCSR0C = _BV(UCSZ01) | _BV(UCSZ00);             // for ATmega328
+  aa:	86 e0       	ldi	r24, 0x06	; 6
+  ac:	80 93 c2 00 	sts	0x00C2, r24
+#endif
+
+  cr_flag = false;                                // set default, no 'cr' detected yet.
+  b0:	10 92 84 01 	sts	0x0184, r1
+  t_in = t_out = r_in = r_out = 0;                // set all buffer indices to zero.
+  b4:	10 92 83 01 	sts	0x0183, r1
+  b8:	80 91 83 01 	lds	r24, 0x0183
+  bc:	80 93 82 01 	sts	0x0182, r24
+  c0:	80 91 82 01 	lds	r24, 0x0182
+  c4:	80 93 81 01 	sts	0x0181, r24
+  c8:	80 91 81 01 	lds	r24, 0x0181
+  cc:	80 93 80 01 	sts	0x0180, r24
+
+  sei();                                          // enable interrupts.
+  d0:	78 94       	sei
+}
+  d2:	08 95       	ret
+
+000000d4 <UART_putc>:
+//
+// If the character does not fit in buffer, it will still be transmitted, but it waits
+// until characters are transmitted and free space is available in the buffer.
+//
+void UART_putc (unsigned char c)
+{
+  d4:	48 2f       	mov	r20, r24
+  // If the transmit-buffer is full, wait for it, interrupts will empty it
+  // There is no timeout.
+  while((TBUFSIZE - UART_tbuflen()) <= 2)
+  d6:	20 e4       	ldi	r18, 0x40	; 64
+  d8:	30 e0       	ldi	r19, 0x00	; 0
+// Number of bytes as yet untransmitted
+// Don't call this from an ISR
+//
+unsigned char UART_tbuflen (void)
+{
+  return(t_in - t_out);
+  da:	80 91 80 01 	lds	r24, 0x0180
+  de:	90 91 81 01 	lds	r25, 0x0181
+//
+void UART_putc (unsigned char c)
+{
+  // If the transmit-buffer is full, wait for it, interrupts will empty it
+  // There is no timeout.
+  while((TBUFSIZE - UART_tbuflen()) <= 2)
+  e2:	89 1b       	sub	r24, r25
+  e4:	b9 01       	movw	r22, r18
+  e6:	68 1b       	sub	r22, r24
+  e8:	71 09       	sbc	r23, r1
+  ea:	63 30       	cpi	r22, 0x03	; 3
+  ec:	71 05       	cpc	r23, r1
+  ee:	ac f3       	brlt	.-22     	; 0xda <UART_putc+0x6>
+    ;
+
+  // Add data to the transmit buffer, enable transmit interrupts
+  tbuf[t_in & TMASK] = c;       // set character in circular buffer
+  f0:	e0 91 80 01 	lds	r30, 0x0180
+  f4:	f0 e0       	ldi	r31, 0x00	; 0
+  f6:	ef 73       	andi	r30, 0x3F	; 63
+  f8:	f0 70       	andi	r31, 0x00	; 0
+  fa:	e0 50       	subi	r30, 0x00	; 0
+  fc:	ff 4f       	sbci	r31, 0xFF	; 255
+  fe:	40 83       	st	Z, r20
+  t_in++;                       // increment head index
+ 100:	80 91 80 01 	lds	r24, 0x0180
+ 104:	8f 5f       	subi	r24, 0xFF	; 255
+ 106:	80 93 80 01 	sts	0x0180, r24
+  UCSR0B |= _BV(UDRIE0);        // Enable UDR empty interrupt, the ISR will move from buffer to UART
+ 10a:	80 91 c1 00 	lds	r24, 0x00C1
+ 10e:	80 62       	ori	r24, 0x20	; 32
+ 110:	80 93 c1 00 	sts	0x00C1, r24
+}
+ 114:	08 95       	ret
+
+00000116 <UART_puts>:
+
+///////////////////////////////////////////////////////////////
+// Send string from RAM
+//
+void UART_puts (char *p)
+{
+ 116:	cf 93       	push	r28
+ 118:	df 93       	push	r29
+ 11a:	ec 01       	movw	r28, r24
+ 11c:	03 c0       	rjmp	.+6      	; 0x124 <UART_puts+0xe>
+  while (*p)
+    UART_putc(*p++);
+ 11e:	21 96       	adiw	r28, 0x01	; 1
+ 120:	0e 94 6a 00 	call	0xd4	; 0xd4 <UART_putc>
+///////////////////////////////////////////////////////////////
+// Send string from RAM
+//
+void UART_puts (char *p)
+{
+  while (*p)
+ 124:	88 81       	ld	r24, Y
+ 126:	88 23       	and	r24, r24
+ 128:	d1 f7       	brne	.-12     	; 0x11e <UART_puts+0x8>
+    UART_putc(*p++);
+}
+ 12a:	df 91       	pop	r29
+ 12c:	cf 91       	pop	r28
+ 12e:	08 95       	ret
+
+00000130 <UART_puts_P>:
+
+///////////////////////////////////////////////////////////////
+// Send string from flash memory
+//
+void UART_puts_P (const char *p)
+{
+ 130:	cf 93       	push	r28
+ 132:	df 93       	push	r29
+ 134:	ec 01       	movw	r28, r24
+ 136:	02 c0       	rjmp	.+4      	; 0x13c <UART_puts_P+0xc>
+  char b;
+
+  while ( (b = pgm_read_byte(p++)) != '\0')
+    UART_putc(b);
+ 138:	0e 94 6a 00 	call	0xd4	; 0xd4 <UART_putc>
+ 13c:	fe 01       	movw	r30, r28
+//
+void UART_puts_P (const char *p)
+{
+  char b;
+
+  while ( (b = pgm_read_byte(p++)) != '\0')
+ 13e:	21 96       	adiw	r28, 0x01	; 1
+ 140:	84 91       	lpm	r24, Z+
+ 142:	88 23       	and	r24, r24
+ 144:	c9 f7       	brne	.-14     	; 0x138 <UART_puts_P+0x8>
+    UART_putc(b);
+}
+ 146:	df 91       	pop	r29
+ 148:	cf 91       	pop	r28
+ 14a:	08 95       	ret
+
+0000014c <UART_getc>:
+// Number of bytes in receive buffer
+// Call this to avoid blocking in UART_getc()
+//
+unsigned char UART_rbuflen (void)
+{
+  return (r_in - r_out);
+ 14c:	90 91 82 01 	lds	r25, 0x0182
+ 150:	80 91 83 01 	lds	r24, 0x0183
+//
+unsigned char UART_getc (void)
+{
+  unsigned char c;
+
+  while (UART_rbuflen() == 0)  // Wait for data. See also UART_rbuflen()
+ 154:	98 17       	cp	r25, r24
+ 156:	d1 f3       	breq	.-12     	; 0x14c <UART_getc>
+    ;
+
+  c = rbuf[r_out & RMASK];
+ 158:	e0 91 83 01 	lds	r30, 0x0183
+ 15c:	f0 e0       	ldi	r31, 0x00	; 0
+ 15e:	ef 73       	andi	r30, 0x3F	; 63
+ 160:	f0 70       	andi	r31, 0x00	; 0
+ 162:	e0 5c       	subi	r30, 0xC0	; 192
+ 164:	fe 4f       	sbci	r31, 0xFE	; 254
+ 166:	80 81       	ld	r24, Z
+  r_out++;
+ 168:	90 91 83 01 	lds	r25, 0x0183
+ 16c:	9f 5f       	subi	r25, 0xFF	; 255
+ 16e:	90 93 83 01 	sts	0x0183, r25
+
+  return(c);
+}
+ 172:	08 95       	ret
+
+00000174 <UART_gets>:
+//    For example: UART_rbuflen() could be 2, and the string could be empty (or not).
+//
+// Note that mixing UART_gets() and UART_getc() could break the autodetection of CR,LF,CRLF.
+//
+int UART_gets (char *buffer, int bufsize)
+{
+ 174:	dc 01       	movw	r26, r24
+  int i = 0;                             // index for buffer, and character counter.
+  uint8_t eol = false;                   // flag for end-of-line
+
+  if (bufsize > 0)
+ 176:	16 16       	cp	r1, r22
+ 178:	17 06       	cpc	r1, r23
+ 17a:	1c f0       	brlt	.+6      	; 0x182 <UART_gets+0xe>
+ 17c:	20 e0       	ldi	r18, 0x00	; 0
+ 17e:	30 e0       	ldi	r19, 0x00	; 0
+ 180:	35 c0       	rjmp	.+106    	; 0x1ec <UART_gets+0x78>
+ 182:	20 e0       	ldi	r18, 0x00	; 0
+ 184:	30 e0       	ldi	r19, 0x00	; 0
+          eol = true;
+      }
+      else
+      {
+        cr_flag = false;                 // normal character, clear flag
+        if (i < (bufsize - 1))           // is there still a place for the next character ?
+ 186:	61 50       	subi	r22, 0x01	; 1
+ 188:	70 40       	sbci	r23, 0x00	; 0
+// Number of bytes in receive buffer
+// Call this to avoid blocking in UART_getc()
+//
+unsigned char UART_rbuflen (void)
+{
+  return (r_in - r_out);
+ 18a:	90 91 82 01 	lds	r25, 0x0182
+ 18e:	80 91 83 01 	lds	r24, 0x0183
+//
+unsigned char UART_getc (void)
+{
+  unsigned char c;
+
+  while (UART_rbuflen() == 0)  // Wait for data. See also UART_rbuflen()
+ 192:	98 17       	cp	r25, r24
+ 194:	d1 f3       	breq	.-12     	; 0x18a <UART_gets+0x16>
+    ;
+
+  c = rbuf[r_out & RMASK];
+ 196:	e0 91 83 01 	lds	r30, 0x0183
+ 19a:	f0 e0       	ldi	r31, 0x00	; 0
+ 19c:	ef 73       	andi	r30, 0x3F	; 63
+ 19e:	f0 70       	andi	r31, 0x00	; 0
+ 1a0:	e0 5c       	subi	r30, 0xC0	; 192
+ 1a2:	fe 4f       	sbci	r31, 0xFE	; 254
+ 1a4:	90 81       	ld	r25, Z
+  r_out++;
+ 1a6:	80 91 83 01 	lds	r24, 0x0183
+ 1aa:	8f 5f       	subi	r24, 0xFF	; 255
+ 1ac:	80 93 83 01 	sts	0x0183, r24
+
+  if (bufsize > 0)
+  {
+    while (!eol)
+    {
+      buffer[i] = (char) UART_getc();    // get a fresh character from the input buffer
+ 1b0:	fd 01       	movw	r30, r26
+ 1b2:	e2 0f       	add	r30, r18
+ 1b4:	f3 1f       	adc	r31, r19
+ 1b6:	90 83       	st	Z, r25
+      if (buffer[i] == '\r')             // check for CR
+ 1b8:	9d 30       	cpi	r25, 0x0D	; 13
+ 1ba:	21 f4       	brne	.+8      	; 0x1c4 <UART_gets+0x50>
+      {
+        cr_flag = true;
+ 1bc:	81 e0       	ldi	r24, 0x01	; 1
+ 1be:	80 93 84 01 	sts	0x0184, r24
+ 1c2:	11 c0       	rjmp	.+34     	; 0x1e6 <UART_gets+0x72>
+        eol = true;                      // end this line
+      }
+      else if (buffer[i] == '\n')        // check for LF
+ 1c4:	9a 30       	cpi	r25, 0x0A	; 10
+ 1c6:	39 f4       	brne	.+14     	; 0x1d6 <UART_gets+0x62>
+      {
+        if (cr_flag)                     // Previous character was CR, ignore the LF, don't advance index.
+ 1c8:	80 91 84 01 	lds	r24, 0x0184
+ 1cc:	88 23       	and	r24, r24
+ 1ce:	59 f0       	breq	.+22     	; 0x1e6 <UART_gets+0x72>
+          cr_flag = false;
+ 1d0:	10 92 84 01 	sts	0x0184, r1
+ 1d4:	da cf       	rjmp	.-76     	; 0x18a <UART_gets+0x16>
+        else                             // No CR flag: end this line.
+          eol = true;
+      }
+      else
+      {
+        cr_flag = false;                 // normal character, clear flag
+ 1d6:	10 92 84 01 	sts	0x0184, r1
+        if (i < (bufsize - 1))           // is there still a place for the next character ?
+ 1da:	26 17       	cp	r18, r22
+ 1dc:	37 07       	cpc	r19, r23
+ 1de:	ac f6       	brge	.-86     	; 0x18a <UART_gets+0x16>
+          i++;                           // advance to next position.
+ 1e0:	2f 5f       	subi	r18, 0xFF	; 255
+ 1e2:	3f 4f       	sbci	r19, 0xFF	; 255
+ 1e4:	d2 cf       	rjmp	.-92     	; 0x18a <UART_gets+0x16>
+      }
+    }
+
+    // The CR ('\r') or LF ('\n') is overwritten by the string terminator.
+    buffer[i] = '\0';                    // End the string with '\0'
+ 1e6:	a2 0f       	add	r26, r18
+ 1e8:	b3 1f       	adc	r27, r19
+ 1ea:	1c 92       	st	X, r1
+
+  // Return the length of the string.
+  // It could be a truncated string if too many characters were received.
+  // It shou be the same as strlen(buffer)
+  return (i);
+}
+ 1ec:	c9 01       	movw	r24, r18
+ 1ee:	08 95       	ret
+
+000001f0 <UART_tbuflen>:
+// Number of bytes as yet untransmitted
+// Don't call this from an ISR
+//
+unsigned char UART_tbuflen (void)
+{
+  return(t_in - t_out);
+ 1f0:	80 91 80 01 	lds	r24, 0x0180
+ 1f4:	90 91 81 01 	lds	r25, 0x0181
+}
+ 1f8:	89 1b       	sub	r24, r25
+ 1fa:	08 95       	ret
+
+000001fc <UART_rbuflen>:
+// Number of bytes in receive buffer
+// Call this to avoid blocking in UART_getc()
+//
+unsigned char UART_rbuflen (void)
+{
+  return (r_in - r_out);
+ 1fc:	80 91 82 01 	lds	r24, 0x0182
+ 200:	90 91 83 01 	lds	r25, 0x0183
+}
+ 204:	89 1b       	sub	r24, r25
+ 206:	08 95       	ret
+
+00000208 <__vector_19>:
+// Transmit complete interrupt
+//
+// USART transmit Data Register Empty interrupt.
+//
+ISR (USART_UDRE_vect)           // changed into new name
+{
+ 208:	1f 92       	push	r1
+ 20a:	0f 92       	push	r0
+ 20c:	0f b6       	in	r0, 0x3f	; 63
+ 20e:	0f 92       	push	r0
+ 210:	11 24       	eor	r1, r1
+ 212:	8f 93       	push	r24
+ 214:	9f 93       	push	r25
+ 216:	ef 93       	push	r30
+ 218:	ff 93       	push	r31
+  if(t_in != t_out)             // is buffer empty ?
+ 21a:	90 91 80 01 	lds	r25, 0x0180
+ 21e:	80 91 81 01 	lds	r24, 0x0181
+ 222:	98 17       	cp	r25, r24
+ 224:	81 f0       	breq	.+32     	; 0x246 <__vector_19+0x3e>
+  {
+    UDR0 = tbuf[t_out & TMASK];
+ 226:	e0 91 81 01 	lds	r30, 0x0181
+ 22a:	f0 e0       	ldi	r31, 0x00	; 0
+ 22c:	ef 73       	andi	r30, 0x3F	; 63
+ 22e:	f0 70       	andi	r31, 0x00	; 0
+ 230:	e0 50       	subi	r30, 0x00	; 0
+ 232:	ff 4f       	sbci	r31, 0xFF	; 255
+ 234:	80 81       	ld	r24, Z
+ 236:	80 93 c6 00 	sts	0x00C6, r24
+    t_out++;                    // TMASK makes it unnecessary to range limit this
+ 23a:	80 91 81 01 	lds	r24, 0x0181
+ 23e:	8f 5f       	subi	r24, 0xFF	; 255
+ 240:	80 93 81 01 	sts	0x0181, r24
+ 244:	05 c0       	rjmp	.+10     	; 0x250 <__vector_19+0x48>
+  }
+  else
+  {
+    UCSR0B &= ~_BV(UDRIE0);     // buffer is empty, disable interrupt
+ 246:	80 91 c1 00 	lds	r24, 0x00C1
+ 24a:	8f 7d       	andi	r24, 0xDF	; 223
+ 24c:	80 93 c1 00 	sts	0x00C1, r24
+  }
+}
+ 250:	ff 91       	pop	r31
+ 252:	ef 91       	pop	r30
+ 254:	9f 91       	pop	r25
+ 256:	8f 91       	pop	r24
+ 258:	0f 90       	pop	r0
+ 25a:	0f be       	out	0x3f, r0	; 63
+ 25c:	0f 90       	pop	r0
+ 25e:	1f 90       	pop	r1
+ 260:	18 95       	reti
+
+00000262 <__vector_18>:
+// Bad:
+//    The characters before the CR or LF might all be gone,
+//    if the number of received characters is the same as the input buffer.
+//
+ISR (USART_RX_vect)           // changed into new name
+{
+ 262:	1f 92       	push	r1
+ 264:	0f 92       	push	r0
+ 266:	0f b6       	in	r0, 0x3f	; 63
+ 268:	0f 92       	push	r0
+ 26a:	11 24       	eor	r1, r1
+ 26c:	8f 93       	push	r24
+ 26e:	ef 93       	push	r30
+ 270:	ff 93       	push	r31
+  rbuf[r_in & RMASK] = UDR0;  // Put received char in buffer (no check for overflow)
+ 272:	e0 91 82 01 	lds	r30, 0x0182
+ 276:	f0 e0       	ldi	r31, 0x00	; 0
+ 278:	ef 73       	andi	r30, 0x3F	; 63
+ 27a:	f0 70       	andi	r31, 0x00	; 0
+ 27c:	80 91 c6 00 	lds	r24, 0x00C6
+ 280:	e0 5c       	subi	r30, 0xC0	; 192
+ 282:	fe 4f       	sbci	r31, 0xFE	; 254
+ 284:	80 83       	st	Z, r24
+  r_in++;                     // RMASK makes it unnecessary to range limit this
+ 286:	80 91 82 01 	lds	r24, 0x0182
+ 28a:	8f 5f       	subi	r24, 0xFF	; 255
+ 28c:	80 93 82 01 	sts	0x0182, r24
+}
+ 290:	ff 91       	pop	r31
+ 292:	ef 91       	pop	r30
+ 294:	8f 91       	pop	r24
+ 296:	0f 90       	pop	r0
+ 298:	0f be       	out	0x3f, r0	; 63
+ 29a:	0f 90       	pop	r0
+ 29c:	1f 90       	pop	r1
+ 29e:	18 95       	reti
+
+000002a0 <main>:
+	char serialCharacter;
+
+
+	// -------- Inits --------- //
+
+	UART_init();
+ 2a0:	0e 94 48 00 	call	0x90	; 0x90 <UART_init>
+ 2a4:	80 e1       	ldi	r24, 0x10	; 16
+ 2a6:	97 e2       	ldi	r25, 0x27	; 39
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+ 2a8:	29 e1       	ldi	r18, 0x19	; 25
+ 2aa:	30 e0       	ldi	r19, 0x00	; 0
+ 2ac:	f9 01       	movw	r30, r18
+ 2ae:	31 97       	sbiw	r30, 0x01	; 1
+ 2b0:	f1 f7       	brne	.-4      	; 0x2ae <main+0xe>
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 2b2:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 2b4:	d9 f7       	brne	.-10     	; 0x2ac <main+0xc>
+ 2b6:	80 e1       	ldi	r24, 0x10	; 16
+ 2b8:	97 e2       	ldi	r25, 0x27	; 39
+ 2ba:	f8 cf       	rjmp	.-16     	; 0x2ac <main+0xc>
+
+000002bc <_exit>:
+ 2bc:	f8 94       	cli
+
+000002be <__stop_program>:
+ 2be:	ff cf       	rjmp	.-2      	; 0x2be <__stop_program>

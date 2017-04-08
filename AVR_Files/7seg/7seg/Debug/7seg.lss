@@ -1,0 +1,659 @@
+
+7seg.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000002fc  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .comment      00000030  00000000  00000000  00000350  2**0
+                  CONTENTS, READONLY
+  2 .debug_aranges 000000a0  00000000  00000000  00000380  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_info   000004b9  00000000  00000000  00000420  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_abbrev 00000141  00000000  00000000  000008d9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_line   00000242  00000000  00000000  00000a1a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_frame  00000158  00000000  00000000  00000c5c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_str    0000018b  00000000  00000000  00000db4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_loc    00000336  00000000  00000000  00000f3f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_ranges 000000d8  00000000  00000000  00001275  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   8:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  10:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  14:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  18:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  1c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  20:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  24:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  28:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  2c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  30:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  34:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  38:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  3c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  40:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  44:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  48:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  4c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  50:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  54:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  58:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  5c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  60:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  64:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+  74:	0e 94 10 01 	call	0x220	; 0x220 <main>
+  78:	0c 94 7c 01 	jmp	0x2f8	; 0x2f8 <_exit>
+
+0000007c <__bad_interrupt>:
+  7c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000080 <num0>:
+#include <avr/io.h>
+#include <util/delay.h>
+
+void num0(void)
+{
+	PORTB = 0b00000100;
+  80:	84 e0       	ldi	r24, 0x04	; 4
+  82:	85 b9       	out	0x05, r24	; 5
+	PORTD = 0b01000000;
+  84:	80 e4       	ldi	r24, 0x40	; 64
+  86:	8b b9       	out	0x0b, r24	; 11
+  88:	08 95       	ret
+
+0000008a <num1>:
+}
+void num1(void)
+{
+	PORTB = 0b00101101;
+  8a:	8d e2       	ldi	r24, 0x2D	; 45
+  8c:	85 b9       	out	0x05, r24	; 5
+	PORTD = 0b11000000;
+  8e:	80 ec       	ldi	r24, 0xC0	; 192
+  90:	8b b9       	out	0x0b, r24	; 11
+  92:	08 95       	ret
+
+00000094 <num2>:
+}
+void num2(void)
+{
+	PORTB = 0b00110000;
+  94:	80 e3       	ldi	r24, 0x30	; 48
+  96:	85 b9       	out	0x05, r24	; 5
+	PORTD = 0b01000000;
+  98:	80 e4       	ldi	r24, 0x40	; 64
+  9a:	8b b9       	out	0x0b, r24	; 11
+  9c:	08 95       	ret
+
+0000009e <num3>:
+}
+void num3(void)
+{
+	PORTB = 0b00100000;
+  9e:	80 e2       	ldi	r24, 0x20	; 32
+  a0:	85 b9       	out	0x05, r24	; 5
+	PORTD = 0b11000000;	
+  a2:	80 ec       	ldi	r24, 0xC0	; 192
+  a4:	8b b9       	out	0x0b, r24	; 11
+  a6:	08 95       	ret
+
+000000a8 <num4>:
+}
+void num4(void)
+{
+	PORTB = 0b00001001;
+  a8:	89 e0       	ldi	r24, 0x09	; 9
+  aa:	85 b9       	out	0x05, r24	; 5
+	PORTD = 0b11000000;	
+  ac:	80 ec       	ldi	r24, 0xC0	; 192
+  ae:	8b b9       	out	0x0b, r24	; 11
+  b0:	08 95       	ret
+
+000000b2 <num5>:
+}
+void num5(void)
+{
+	PORTB = 0b00000010;
+  b2:	82 e0       	ldi	r24, 0x02	; 2
+  b4:	85 b9       	out	0x05, r24	; 5
+	PORTD = 0b11000000;	
+  b6:	80 ec       	ldi	r24, 0xC0	; 192
+  b8:	8b b9       	out	0x0b, r24	; 11
+  ba:	08 95       	ret
+
+000000bc <num6>:
+}
+void num6(void)
+{
+	PORTB = 0b00000010;
+  bc:	82 e0       	ldi	r24, 0x02	; 2
+  be:	85 b9       	out	0x05, r24	; 5
+	PORTD = 0b01000000;
+  c0:	80 e4       	ldi	r24, 0x40	; 64
+  c2:	8b b9       	out	0x0b, r24	; 11
+  c4:	08 95       	ret
+
+000000c6 <num7>:
+}
+void num7(void)
+{
+	PORTB = 0b00100101;
+  c6:	85 e2       	ldi	r24, 0x25	; 37
+  c8:	85 b9       	out	0x05, r24	; 5
+	PORTD = 0b11000000;
+  ca:	80 ec       	ldi	r24, 0xC0	; 192
+  cc:	8b b9       	out	0x0b, r24	; 11
+  ce:	08 95       	ret
+
+000000d0 <num8>:
+}
+void num8(void)
+{
+	PORTB = 0b00000000;
+  d0:	15 b8       	out	0x05, r1	; 5
+	PORTD = 0b01000000;
+  d2:	80 e4       	ldi	r24, 0x40	; 64
+  d4:	8b b9       	out	0x0b, r24	; 11
+  d6:	08 95       	ret
+
+000000d8 <num9>:
+}
+void num9(void)
+{
+	PORTB = 0b00000001;
+  d8:	81 e0       	ldi	r24, 0x01	; 1
+  da:	85 b9       	out	0x05, r24	; 5
+	PORTD = 0b11000000;
+  dc:	80 ec       	ldi	r24, 0xC0	; 192
+  de:	8b b9       	out	0x0b, r24	; 11
+  e0:	08 95       	ret
+
+000000e2 <colon>:
+}
+
+void colon(void)
+{
+	PORTB = 0b00110101;
+  e2:	85 e3       	ldi	r24, 0x35	; 53
+  e4:	85 b9       	out	0x05, r24	; 5
+	PORTD = 0b11000000;	
+  e6:	80 ec       	ldi	r24, 0xC0	; 192
+  e8:	8b b9       	out	0x0b, r24	; 11
+  ea:	08 95       	ret
+
+000000ec <display_rst>:
+}
+void display_rst(void)
+{
+	PORTB = 0xFF;
+  ec:	8f ef       	ldi	r24, 0xFF	; 255
+  ee:	85 b9       	out	0x05, r24	; 5
+	PORTD = 0xFF;
+  f0:	8b b9       	out	0x0b, r24	; 11
+  f2:	08 95       	ret
+
+000000f4 <parse1>:
+}
+
+int parse1(int pval) //turn the values to being usable by display
+{
+  f4:	cf 92       	push	r12
+  f6:	df 92       	push	r13
+  f8:	ef 92       	push	r14
+  fa:	ff 92       	push	r15
+  fc:	0f 93       	push	r16
+  fe:	1f 93       	push	r17
+ 100:	cf 93       	push	r28
+ 102:	df 93       	push	r29
+ 104:	ec 01       	movw	r28, r24
+	int d1;
+	int d2;
+
+	for (int i = 0; i <= 60; i = i + 10)
+ 106:	e0 e0       	ldi	r30, 0x00	; 0
+ 108:	f0 e0       	ldi	r31, 0x00	; 0
+		for (int f = 0; f <= 9; f = f + 1)
+		{
+			int g = i + f;
+			if (pval == g)
+			{
+				d1 = i / 10;
+ 10a:	0a e0       	ldi	r16, 0x0A	; 10
+ 10c:	10 e0       	ldi	r17, 0x00	; 0
+ 10e:	e1 2c       	mov	r14, r1
+ 110:	f1 2c       	mov	r15, r1
+ 112:	11 c0       	rjmp	.+34     	; 0x136 <parse1+0x42>
+ 114:	a9 01       	movw	r20, r18
+ 116:	4e 0f       	add	r20, r30
+ 118:	5f 1f       	adc	r21, r31
+	{
+		
+		for (int f = 0; f <= 9; f = f + 1)
+		{
+			int g = i + f;
+			if (pval == g)
+ 11a:	c4 17       	cp	r28, r20
+ 11c:	d5 07       	cpc	r29, r21
+ 11e:	11 f4       	brne	.+4      	; 0x124 <parse1+0x30>
+			{
+				d1 = i / 10;
+ 120:	c6 2e       	mov	r12, r22
+ 122:	d7 2e       	mov	r13, r23
+	int d2;
+
+	for (int i = 0; i <= 60; i = i + 10)
+	{
+		
+		for (int f = 0; f <= 9; f = f + 1)
+ 124:	2f 5f       	subi	r18, 0xFF	; 255
+ 126:	3f 4f       	sbci	r19, 0xFF	; 255
+ 128:	2a 30       	cpi	r18, 0x0A	; 10
+ 12a:	31 05       	cpc	r19, r1
+ 12c:	99 f7       	brne	.-26     	; 0x114 <parse1+0x20>
+int parse1(int pval) //turn the values to being usable by display
+{
+	int d1;
+	int d2;
+
+	for (int i = 0; i <= 60; i = i + 10)
+ 12e:	3a 96       	adiw	r30, 0x0a	; 10
+ 130:	e6 34       	cpi	r30, 0x46	; 70
+ 132:	f1 05       	cpc	r31, r1
+ 134:	39 f0       	breq	.+14     	; 0x144 <parse1+0x50>
+		for (int f = 0; f <= 9; f = f + 1)
+		{
+			int g = i + f;
+			if (pval == g)
+			{
+				d1 = i / 10;
+ 136:	cf 01       	movw	r24, r30
+ 138:	b8 01       	movw	r22, r16
+ 13a:	0e 94 54 01 	call	0x2a8	; 0x2a8 <__divmodhi4>
+ 13e:	2e 2d       	mov	r18, r14
+ 140:	3f 2d       	mov	r19, r15
+ 142:	e8 cf       	rjmp	.-48     	; 0x114 <parse1+0x20>
+				d2 = f;
+			}
+		}
+	}
+	return d1;
+}
+ 144:	8c 2d       	mov	r24, r12
+ 146:	9d 2d       	mov	r25, r13
+ 148:	df 91       	pop	r29
+ 14a:	cf 91       	pop	r28
+ 14c:	1f 91       	pop	r17
+ 14e:	0f 91       	pop	r16
+ 150:	ff 90       	pop	r15
+ 152:	ef 90       	pop	r14
+ 154:	df 90       	pop	r13
+ 156:	cf 90       	pop	r12
+ 158:	08 95       	ret
+
+0000015a <parse2>:
+int parse2(int pval) //turn the values to being usable by display
+{
+	int d1;
+	int d2;
+
+	for (int i = 0; i <= 60; i = i + 10)
+ 15a:	60 e0       	ldi	r22, 0x00	; 0
+ 15c:	70 e0       	ldi	r23, 0x00	; 0
+		}
+	}
+	return d1;
+}
+int parse2(int pval) //turn the values to being usable by display
+{
+ 15e:	f0 e0       	ldi	r31, 0x00	; 0
+ 160:	e0 e0       	ldi	r30, 0x00	; 0
+ 162:	12 c0       	rjmp	.+36     	; 0x188 <parse2+0x2e>
+ 164:	a9 01       	movw	r20, r18
+ 166:	46 0f       	add	r20, r22
+ 168:	57 1f       	adc	r21, r23
+	{
+		
+		for (int f = 0; f <= 9; f = f + 1)
+		{
+			int g = i + f;
+			if (pval == g)
+ 16a:	84 17       	cp	r24, r20
+ 16c:	95 07       	cpc	r25, r21
+ 16e:	11 f4       	brne	.+4      	; 0x174 <parse2+0x1a>
+ 170:	b2 2f       	mov	r27, r18
+ 172:	a3 2f       	mov	r26, r19
+	int d2;
+
+	for (int i = 0; i <= 60; i = i + 10)
+	{
+		
+		for (int f = 0; f <= 9; f = f + 1)
+ 174:	2f 5f       	subi	r18, 0xFF	; 255
+ 176:	3f 4f       	sbci	r19, 0xFF	; 255
+ 178:	2a 30       	cpi	r18, 0x0A	; 10
+ 17a:	31 05       	cpc	r19, r1
+ 17c:	99 f7       	brne	.-26     	; 0x164 <parse2+0xa>
+int parse2(int pval) //turn the values to being usable by display
+{
+	int d1;
+	int d2;
+
+	for (int i = 0; i <= 60; i = i + 10)
+ 17e:	66 5f       	subi	r22, 0xF6	; 246
+ 180:	7f 4f       	sbci	r23, 0xFF	; 255
+ 182:	66 34       	cpi	r22, 0x46	; 70
+ 184:	71 05       	cpc	r23, r1
+ 186:	19 f0       	breq	.+6      	; 0x18e <parse2+0x34>
+		}
+	}
+	return d1;
+}
+int parse2(int pval) //turn the values to being usable by display
+{
+ 188:	2f 2f       	mov	r18, r31
+ 18a:	3e 2f       	mov	r19, r30
+ 18c:	eb cf       	rjmp	.-42     	; 0x164 <parse2+0xa>
+				d2 = f;
+			}
+		}
+	}
+	return d2;
+}
+ 18e:	8b 2f       	mov	r24, r27
+ 190:	9a 2f       	mov	r25, r26
+ 192:	08 95       	ret
+
+00000194 <numCall>:
+
+void numCall(int num)
+{
+ 194:	cf 93       	push	r28
+ 196:	df 93       	push	r29
+ 198:	ec 01       	movw	r28, r24
+	if (num == 0)
+ 19a:	00 97       	sbiw	r24, 0x00	; 0
+ 19c:	19 f4       	brne	.+6      	; 0x1a4 <numCall+0x10>
+	{
+		num0();
+ 19e:	0e 94 40 00 	call	0x80	; 0x80 <num0>
+ 1a2:	0c c0       	rjmp	.+24     	; 0x1bc <numCall+0x28>
+	}
+	if (num == 1)
+ 1a4:	81 30       	cpi	r24, 0x01	; 1
+ 1a6:	91 05       	cpc	r25, r1
+ 1a8:	19 f4       	brne	.+6      	; 0x1b0 <numCall+0x1c>
+	{
+		num1();
+ 1aa:	0e 94 45 00 	call	0x8a	; 0x8a <num1>
+ 1ae:	0c c0       	rjmp	.+24     	; 0x1c8 <numCall+0x34>
+	}
+	if (num == 2)
+ 1b0:	82 30       	cpi	r24, 0x02	; 2
+ 1b2:	91 05       	cpc	r25, r1
+ 1b4:	19 f4       	brne	.+6      	; 0x1bc <numCall+0x28>
+	{
+		num2();
+ 1b6:	0e 94 4a 00 	call	0x94	; 0x94 <num2>
+ 1ba:	0c c0       	rjmp	.+24     	; 0x1d4 <numCall+0x40>
+	}
+	if (num == 3)
+ 1bc:	c3 30       	cpi	r28, 0x03	; 3
+ 1be:	d1 05       	cpc	r29, r1
+ 1c0:	19 f4       	brne	.+6      	; 0x1c8 <numCall+0x34>
+	{
+		num3();
+ 1c2:	0e 94 4f 00 	call	0x9e	; 0x9e <num3>
+ 1c6:	0c c0       	rjmp	.+24     	; 0x1e0 <numCall+0x4c>
+	}
+	if (num == 4)
+ 1c8:	c4 30       	cpi	r28, 0x04	; 4
+ 1ca:	d1 05       	cpc	r29, r1
+ 1cc:	19 f4       	brne	.+6      	; 0x1d4 <numCall+0x40>
+	{
+		num4();
+ 1ce:	0e 94 54 00 	call	0xa8	; 0xa8 <num4>
+ 1d2:	0c c0       	rjmp	.+24     	; 0x1ec <numCall+0x58>
+	}
+	if (num == 5)
+ 1d4:	c5 30       	cpi	r28, 0x05	; 5
+ 1d6:	d1 05       	cpc	r29, r1
+ 1d8:	19 f4       	brne	.+6      	; 0x1e0 <numCall+0x4c>
+	{
+		num5();
+ 1da:	0e 94 59 00 	call	0xb2	; 0xb2 <num5>
+ 1de:	0c c0       	rjmp	.+24     	; 0x1f8 <numCall+0x64>
+	}
+	if (num == 6)
+ 1e0:	c6 30       	cpi	r28, 0x06	; 6
+ 1e2:	d1 05       	cpc	r29, r1
+ 1e4:	19 f4       	brne	.+6      	; 0x1ec <numCall+0x58>
+	{
+		num6();
+ 1e6:	0e 94 5e 00 	call	0xbc	; 0xbc <num6>
+ 1ea:	0c c0       	rjmp	.+24     	; 0x204 <numCall+0x70>
+	}
+	if (num == 7)
+ 1ec:	c7 30       	cpi	r28, 0x07	; 7
+ 1ee:	d1 05       	cpc	r29, r1
+ 1f0:	19 f4       	brne	.+6      	; 0x1f8 <numCall+0x64>
+	{
+		num7();
+ 1f2:	0e 94 63 00 	call	0xc6	; 0xc6 <num7>
+ 1f6:	0a c0       	rjmp	.+20     	; 0x20c <numCall+0x78>
+	}
+	if (num == 8)
+ 1f8:	c8 30       	cpi	r28, 0x08	; 8
+ 1fa:	d1 05       	cpc	r29, r1
+ 1fc:	19 f4       	brne	.+6      	; 0x204 <numCall+0x70>
+	{
+		num8();
+ 1fe:	0e 94 68 00 	call	0xd0	; 0xd0 <num8>
+ 202:	04 c0       	rjmp	.+8      	; 0x20c <numCall+0x78>
+	}
+	if (num == 9)
+ 204:	29 97       	sbiw	r28, 0x09	; 9
+ 206:	11 f4       	brne	.+4      	; 0x20c <numCall+0x78>
+	{
+		num9();
+ 208:	0e 94 6c 00 	call	0xd8	; 0xd8 <num9>
+	}
+
+}
+ 20c:	df 91       	pop	r29
+ 20e:	cf 91       	pop	r28
+ 210:	08 95       	ret
+
+00000212 <DisInit>:
+void DisInit(void)
+{
+	DDRB = 0b00111111;
+ 212:	8f e3       	ldi	r24, 0x3F	; 63
+ 214:	84 b9       	out	0x04, r24	; 4
+	DDRC = 0b00011111;
+ 216:	8f e1       	ldi	r24, 0x1F	; 31
+ 218:	87 b9       	out	0x07, r24	; 7
+	DDRD = 0b11000000;
+ 21a:	80 ec       	ldi	r24, 0xC0	; 192
+ 21c:	8a b9       	out	0x0a, r24	; 10
+ 21e:	08 95       	ret
+
+00000220 <main>:
+}
+int main(void)
+{
+	DisInit();
+ 220:	0e 94 09 01 	call	0x212	; 0x212 <DisInit>
+	int time [3] = {5,15,0};
+	int d1 = parse1(time[0]);
+ 224:	85 e0       	ldi	r24, 0x05	; 5
+ 226:	90 e0       	ldi	r25, 0x00	; 0
+ 228:	0e 94 7a 00 	call	0xf4	; 0xf4 <parse1>
+ 22c:	6c 01       	movw	r12, r24
+	int d2 = parse2(time[0]);
+ 22e:	85 e0       	ldi	r24, 0x05	; 5
+ 230:	90 e0       	ldi	r25, 0x00	; 0
+ 232:	0e 94 ad 00 	call	0x15a	; 0x15a <parse2>
+ 236:	7c 01       	movw	r14, r24
+	int d3 = parse1(time[1]);
+ 238:	8f e0       	ldi	r24, 0x0F	; 15
+ 23a:	90 e0       	ldi	r25, 0x00	; 0
+ 23c:	0e 94 7a 00 	call	0xf4	; 0xf4 <parse1>
+ 240:	8c 01       	movw	r16, r24
+	int d4 = parse2(time[1]);
+ 242:	8f e0       	ldi	r24, 0x0F	; 15
+ 244:	90 e0       	ldi	r25, 0x00	; 0
+ 246:	0e 94 ad 00 	call	0x15a	; 0x15a <parse2>
+ 24a:	ec 01       	movw	r28, r24
+	display_rst();
+ 24c:	0e 94 76 00 	call	0xec	; 0xec <display_rst>
+    while(1)
+    {
+		//PORTB = 0b00111111;
+		//PORTD = 0b11000000;
+
+		PORTC = 0b00000001;	
+ 250:	77 24       	eor	r7, r7
+ 252:	73 94       	inc	r7
+		numCall(d1);
+		display_rst();
+		PORTC = 0b00000010;
+ 254:	68 94       	set
+ 256:	88 24       	eor	r8, r8
+ 258:	81 f8       	bld	r8, 1
+		numCall(d2);
+		display_rst();
+		PORTC = 0b00000100;
+ 25a:	68 94       	set
+ 25c:	99 24       	eor	r9, r9
+ 25e:	92 f8       	bld	r9, 2
+		colon();
+		display_rst();
+		PORTC = 0b00001000;
+ 260:	68 94       	set
+ 262:	aa 24       	eor	r10, r10
+ 264:	a3 f8       	bld	r10, 3
+		numCall(d3);
+		display_rst();
+		PORTC = 0b00010000;
+ 266:	68 94       	set
+ 268:	bb 24       	eor	r11, r11
+ 26a:	b4 f8       	bld	r11, 4
+    while(1)
+    {
+		//PORTB = 0b00111111;
+		//PORTD = 0b11000000;
+
+		PORTC = 0b00000001;	
+ 26c:	78 b8       	out	0x08, r7	; 8
+		numCall(d1);
+ 26e:	c6 01       	movw	r24, r12
+ 270:	0e 94 ca 00 	call	0x194	; 0x194 <numCall>
+		display_rst();
+ 274:	0e 94 76 00 	call	0xec	; 0xec <display_rst>
+		PORTC = 0b00000010;
+ 278:	88 b8       	out	0x08, r8	; 8
+		numCall(d2);
+ 27a:	c7 01       	movw	r24, r14
+ 27c:	0e 94 ca 00 	call	0x194	; 0x194 <numCall>
+		display_rst();
+ 280:	0e 94 76 00 	call	0xec	; 0xec <display_rst>
+		PORTC = 0b00000100;
+ 284:	98 b8       	out	0x08, r9	; 8
+		colon();
+ 286:	0e 94 71 00 	call	0xe2	; 0xe2 <colon>
+		display_rst();
+ 28a:	0e 94 76 00 	call	0xec	; 0xec <display_rst>
+		PORTC = 0b00001000;
+ 28e:	a8 b8       	out	0x08, r10	; 8
+		numCall(d3);
+ 290:	c8 01       	movw	r24, r16
+ 292:	0e 94 ca 00 	call	0x194	; 0x194 <numCall>
+		display_rst();
+ 296:	0e 94 76 00 	call	0xec	; 0xec <display_rst>
+		PORTC = 0b00010000;
+ 29a:	b8 b8       	out	0x08, r11	; 8
+		numCall(d4);
+ 29c:	ce 01       	movw	r24, r28
+ 29e:	0e 94 ca 00 	call	0x194	; 0x194 <numCall>
+		display_rst();
+ 2a2:	0e 94 76 00 	call	0xec	; 0xec <display_rst>
+ 2a6:	e2 cf       	rjmp	.-60     	; 0x26c <main+0x4c>
+
+000002a8 <__divmodhi4>:
+ 2a8:	97 fb       	bst	r25, 7
+ 2aa:	07 2e       	mov	r0, r23
+ 2ac:	16 f4       	brtc	.+4      	; 0x2b2 <__divmodhi4+0xa>
+ 2ae:	00 94       	com	r0
+ 2b0:	07 d0       	rcall	.+14     	; 0x2c0 <__divmodhi4_neg1>
+ 2b2:	77 fd       	sbrc	r23, 7
+ 2b4:	09 d0       	rcall	.+18     	; 0x2c8 <__divmodhi4_neg2>
+ 2b6:	0e 94 68 01 	call	0x2d0	; 0x2d0 <__udivmodhi4>
+ 2ba:	07 fc       	sbrc	r0, 7
+ 2bc:	05 d0       	rcall	.+10     	; 0x2c8 <__divmodhi4_neg2>
+ 2be:	3e f4       	brtc	.+14     	; 0x2ce <__divmodhi4_exit>
+
+000002c0 <__divmodhi4_neg1>:
+ 2c0:	90 95       	com	r25
+ 2c2:	81 95       	neg	r24
+ 2c4:	9f 4f       	sbci	r25, 0xFF	; 255
+ 2c6:	08 95       	ret
+
+000002c8 <__divmodhi4_neg2>:
+ 2c8:	70 95       	com	r23
+ 2ca:	61 95       	neg	r22
+ 2cc:	7f 4f       	sbci	r23, 0xFF	; 255
+
+000002ce <__divmodhi4_exit>:
+ 2ce:	08 95       	ret
+
+000002d0 <__udivmodhi4>:
+ 2d0:	aa 1b       	sub	r26, r26
+ 2d2:	bb 1b       	sub	r27, r27
+ 2d4:	51 e1       	ldi	r21, 0x11	; 17
+ 2d6:	07 c0       	rjmp	.+14     	; 0x2e6 <__udivmodhi4_ep>
+
+000002d8 <__udivmodhi4_loop>:
+ 2d8:	aa 1f       	adc	r26, r26
+ 2da:	bb 1f       	adc	r27, r27
+ 2dc:	a6 17       	cp	r26, r22
+ 2de:	b7 07       	cpc	r27, r23
+ 2e0:	10 f0       	brcs	.+4      	; 0x2e6 <__udivmodhi4_ep>
+ 2e2:	a6 1b       	sub	r26, r22
+ 2e4:	b7 0b       	sbc	r27, r23
+
+000002e6 <__udivmodhi4_ep>:
+ 2e6:	88 1f       	adc	r24, r24
+ 2e8:	99 1f       	adc	r25, r25
+ 2ea:	5a 95       	dec	r21
+ 2ec:	a9 f7       	brne	.-22     	; 0x2d8 <__udivmodhi4_loop>
+ 2ee:	80 95       	com	r24
+ 2f0:	90 95       	com	r25
+ 2f2:	bc 01       	movw	r22, r24
+ 2f4:	cd 01       	movw	r24, r26
+ 2f6:	08 95       	ret
+
+000002f8 <_exit>:
+ 2f8:	f8 94       	cli
+
+000002fa <__stop_program>:
+ 2fa:	ff cf       	rjmp	.-2      	; 0x2fa <__stop_program>

@@ -1,0 +1,111 @@
+   1               		.file	"pwm.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	pwmAllPins
+  18               	pwmAllPins:
+  19               	.LFB6:
+  20               	.LM1:
+  21               	.LVL0:
+  22               	/* prologue: function */
+  23               	/* frame size = 0 */
+  24 0000 282F      		mov r18,r24
+  25               	.LM2:
+  26 0002 8FEF      		ldi r24,lo8(-1)
+  27               	.LVL1:
+  28 0004 85B9      		out 37-32,r24
+  29 0006 90E0      		ldi r25,lo8(0)
+  30               	.LVL2:
+  31               	.LBB24:
+  32               	.LBB25:
+  33               	.LBB26:
+  34               	.LBB27:
+  35               	.LM3:
+  36 0008 35E3      		ldi r19,lo8(53)
+  37               	.LVL3:
+  38               	.L3:
+  39               	.LBE27:
+  40               	.LBE26:
+  41               	.LBE25:
+  42               	.LBE24:
+  43               	.LM4:
+  44 000a 9217      		cp r25,r18
+  45 000c 00F0      		brlo .L2
+  46               	.LM5:
+  47 000e 15B8      		out 37-32,__zero_reg__
+  48               	.L2:
+  49               	.LBB31:
+  50               	.LBB30:
+  51               	.LBB29:
+  52               	.LBB28:
+  53               	.LM6:
+  54 0010 832F      		mov r24,r19
+  55               	/* #APP */
+  56               	 ;  83 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+  57 0012 8A95      		1: dec r24
+  58 0014 01F4      		brne 1b
+  59               	 ;  0 "" 2
+  60               	/* #NOAPP */
+  61               	.LBE28:
+  62               	.LBE29:
+  63               	.LBE30:
+  64               	.LBE31:
+  65               	.LM7:
+  66 0016 9F5F      		subi r25,lo8(-(1))
+  67 0018 9F3F      		cpi r25,lo8(-1)
+  68 001a 01F4      		brne .L3
+  69               	/* epilogue start */
+  70               	.LM8:
+  71 001c 0895      		ret
+  72               	.LFE6:
+  74               	.global	main
+  76               	main:
+  77               	.LFB7:
+  78               	.LM9:
+  79 001e 0F93      		push r16
+  80 0020 1F93      		push r17
+  81               	/* prologue: function */
+  82               	/* frame size = 0 */
+  83               	.LM10:
+  84 0022 8FEF      		ldi r24,lo8(-1)
+  85 0024 84B9      		out 36-32,r24
+  86 0026 10E0      		ldi r17,lo8(0)
+  87               	.LVL4:
+  88 0028 01E0      		ldi r16,lo8(1)
+  89               	.LVL5:
+  90               	.L9:
+  91               	.LM11:
+  92 002a 1123      		tst r17
+  93 002c 01F4      		brne .L7
+  94 002e 01E0      		ldi r16,lo8(1)
+  95 0030 00C0      		rjmp .L8
+  96               	.L7:
+  97               	.LM12:
+  98 0032 1F3F      		cpi r17,lo8(-1)
+  99 0034 01F4      		brne .L8
+ 100 0036 0FEF      		ldi r16,lo8(-1)
+ 101               	.L8:
+ 102               	.LM13:
+ 103 0038 100F      		add r17,r16
+ 104               	.LM14:
+ 105 003a 812F      		mov r24,r17
+ 106 003c 0E94 0000 		call pwmAllPins
+ 107 0040 00C0      		rjmp .L9
+ 108               	.LFE7:
+ 142               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 pwm.c
+C:\Users\Spencer\AppData\Local\Temp/cc3fuGwc.s:2      *ABS*:0000003f __SREG__
+C:\Users\Spencer\AppData\Local\Temp/cc3fuGwc.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Spencer\AppData\Local\Temp/cc3fuGwc.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Spencer\AppData\Local\Temp/cc3fuGwc.s:5      *ABS*:00000034 __CCP__
+C:\Users\Spencer\AppData\Local\Temp/cc3fuGwc.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Spencer\AppData\Local\Temp/cc3fuGwc.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Spencer\AppData\Local\Temp/cc3fuGwc.s:18     .text:00000000 pwmAllPins
+C:\Users\Spencer\AppData\Local\Temp/cc3fuGwc.s:76     .text:0000001e main
+
+NO UNDEFINED SYMBOLS

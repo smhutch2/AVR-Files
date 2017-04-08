@@ -1,0 +1,40 @@
+Radiation Monitor
+=========================================================
+Copyright (C) 2012, Radu Motisan , radu.motisan@gmail.com
+ *
+ * http://www.pocketmagic.net
+ *
+=========================================================
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+ 
+ 
+You can use Apache 2.0 licensed source code in your project as long as you include the copy of the 
+license in your distribution and provide attribution in an applicable way in your distribution.
+
+
+It allows you to:
+    freely download and use Apache software, in whole or in part, for personal, company internal, or commercial purposes;
+    use Apache software in packages or distributions that you create.
+
+It forbids you to:
+    redistribute any piece of Apache-originated software without proper attribution;
+    use any marks owned by The Apache Software Foundation in any way that might state or imply that the Foundation endorses your distribution;
+    use any marks owned by The Apache Software Foundation in any way that might state or imply that you created the Apache software in question.
+
+It requires you to:
+    include a copy of the license in any redistribution you may make that includes Apache software;
+    provide clear attribution to The Apache Software Foundation for any distributions that include Apache software.
+
+It does not require you to:
+    include the source of the Apache software itself, or of any modifications you may have made to it, in any redistribution you may assemble that includes it;
+    submit changes that you make to the software back to the Apache Software Foundation (though such feedback is encouraged).
